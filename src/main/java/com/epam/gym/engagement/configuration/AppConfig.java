@@ -12,7 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class AppConfig {
 
-    // In memory storage for entities
     @Bean
     public EntityStorage entityStorage() {
         return new InMemoryStorage();
