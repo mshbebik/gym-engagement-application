@@ -1,15 +1,14 @@
 package com.epam.gym.engagement.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Builder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Trainee extends User {
     private LocalDate dateOfBirth;
     private String address;
