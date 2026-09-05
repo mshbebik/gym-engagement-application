@@ -1,4 +1,4 @@
-package com.epam.gym.engagement.data.Impl;
+package com.epam.gym.engagement.data.impl;
 
 import com.epam.gym.engagement.data.EntityStorage;
 import com.epam.gym.engagement.data.EntityType;

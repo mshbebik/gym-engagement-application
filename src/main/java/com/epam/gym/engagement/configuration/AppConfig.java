@@ -1,7 +1,7 @@
 package com.epam.gym.engagement.configuration;
 
 import com.epam.gym.engagement.data.EntityStorage;
-import com.epam.gym.engagement.data.Impl.InMemoryStorage;
+import com.epam.gym.engagement.data.impl.InMemoryStorage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
