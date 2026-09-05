@@ -1,18 +1,20 @@
 package com.epam.gym.engagement.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Builder
 @NoArgsConstructor
 public class Training {
-    private Trainee trainee;
-    private Trainer trainer;
+    private Long traineeId;
+    private Long trainerId;
     private String trainingName;
     private TrainingType trainingType;
-    private LocalDateTime trainingDate;
+    private LocalDate trainingDate;
     private Integer trainingDuration;
 }
