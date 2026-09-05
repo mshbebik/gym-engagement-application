@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 public class Training {
+    private Long id;
     private Long traineeId;
     private Long trainerId;
     private String trainingName;
