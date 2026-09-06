@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
 @Setter
 public class AbstractDao<V> implements Dao<V> {
     protected Map<Long, V> storage;

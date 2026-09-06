@@ -28,18 +28,7 @@ public class TraineeServiceImpl implements TraineeService {
                 trainee.getLastName(),
                 u -> traineeDao.existsByUsername(u) || trainerDao.existsByUsername(u));
 
-
-        Trainee newTrainee = Trainee.builder()
-                        .firstName(trainee.getFirstName())
-                        .lastName(trainee.getLastName())
-                        .userName(username)
-                        .password(credentialsManager.generateRandomPassword())
-                        .isActive(trainee.getIsActive())
-                        .dateOfBirth(trainee.getDateOfBirth())
-                        .address(trainee.getAddress())
-                        .userId(trainee.getUserId())
-                        .trainings(trainee.getTrainings())
-                        .build();
+        Trainee newTrainee = enrichTrainee(trainee, username, credentialsManager.generateRandomPassword());
 
         traineeDao.save(newTrainee.getUserId(), newTrainee);
         return newTrainee;
@@ -60,5 +49,19 @@ public class TraineeServiceImpl implements TraineeService {
     public Trainee selectTraineeById(Long id) {
         return traineeDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Trainee with id: %d was not found".formatted(id)));
+    }
+
+    private Trainee enrichTrainee(Trainee trainee, String username, String password) {
+        return Trainee.builder()
+                .firstName(trainee.getFirstName())
+                .lastName(trainee.getLastName())
+                .userName(username)
+                .password(credentialsManager.generateRandomPassword())
+                .isActive(trainee.getIsActive())
+                .dateOfBirth(trainee.getDateOfBirth())
+                .address(trainee.getAddress())
+                .userId(trainee.getUserId())
+                .trainings(trainee.getTrainings())
+                .build();
     }
 }

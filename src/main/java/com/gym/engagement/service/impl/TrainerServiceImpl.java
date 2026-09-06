@@ -3,6 +3,7 @@ package com.gym.engagement.service.impl;
 import com.gym.engagement.dao.impl.TraineeDao;
 import com.gym.engagement.dao.impl.TrainerDao;
 import com.gym.engagement.exception.EntityNotFoundException;
+import com.gym.engagement.model.Trainee;
 import com.gym.engagement.model.Trainer;
 import com.gym.engagement.service.TrainerService;
 import com.gym.engagement.service.common.UserCredentialsManager;
@@ -28,16 +29,7 @@ public class TrainerServiceImpl implements TrainerService {
                 trainer.getLastName(),
                 u -> traineeDao.existsByUsername(u) || trainerDao.existsByUsername(u));
 
-        Trainer newTrainer = Trainer.builder()
-                .firstName(trainer.getFirstName())
-                .lastName(trainer.getLastName())
-                .userName(username)
-                .password(credentialsManager.generateRandomPassword())
-                .isActive(trainer.getIsActive())
-                .specialization(trainer.getSpecialization())
-                .userId(trainer.getUserId())
-                .trainings(trainer.getTrainings())
-                .build();
+        Trainer newTrainer = enrichTrainer(trainer, username, credentialsManager.generateRandomPassword());
 
         trainerDao.save(newTrainer.getUserId(), newTrainer);
         return newTrainer;
@@ -53,5 +45,18 @@ public class TrainerServiceImpl implements TrainerService {
     public Trainer selectTrainerById(Long id) {
         return trainerDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Trainer with id: %d was not found".formatted(id)));
+    }
+
+    private Trainer enrichTrainer(Trainer trainer, String username, String password) {
+        return Trainer.builder()
+                .firstName(trainer.getFirstName())
+                .lastName(trainer.getLastName())
+                .userName(username)
+                .password(credentialsManager.generateRandomPassword())
+                .isActive(trainer.getIsActive())
+                .specialization(trainer.getSpecialization())
+                .userId(trainer.getUserId())
+                .trainings(trainer.getTrainings())
+                .build();
     }
 }
