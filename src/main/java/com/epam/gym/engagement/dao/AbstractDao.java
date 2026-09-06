@@ -9,7 +9,7 @@ import java.util.*;
 
 @Setter
 public class AbstractDao<V> implements Dao<V> {
-    private Map<Long, V> storage;
+    protected Map<Long, V> storage;
 
     @Override
     public Optional<V> findById(Long id) {

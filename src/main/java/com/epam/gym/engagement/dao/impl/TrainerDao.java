@@ -14,4 +14,9 @@ public class TrainerDao extends AbstractDao<Trainer> {
     public void setStorage(Map<Long, Trainer> storage) {
         super.setStorage(storage);
     }
+
+    public boolean existsByUsername(String username) {
+        return storage.values().stream()
+                .anyMatch(trainer -> trainer.getUserName().equals(username));
+    }
 }

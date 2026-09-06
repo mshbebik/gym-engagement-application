@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface TrainingService {
 
-    public Training createTraining(Training training);
+    Training createTraining(Training training);
 
     List<Training> selectTrainingsByTrainer(Trainer trainer);
 
     List<Training> selectTrainingsByTrainee(Trainee trainee);
+
+    List<Training> selectTrainingsById(Long id);
 }
