@@ -1,0 +1,107 @@
+{
+  "trainees": [
+    {
+      "userId": 101,
+      "firstName": "John",
+      "lastName": "Pork",
+      "username": "john.pork",
+      "password": "Password123!",
+      "isActive": true,
+      "dateOfBirth": "1998-05-15",
+      "address": "123 Main St, New York, NY",
+      "trainings": []
+    },
+    {
+      "userId": 102,
+      "firstName": "Emma",
+      "lastName": "Watson",
+      "username": "emma.watson",
+      "password": "Password123!",
+      "isActive": true,
+      "dateOfBirth": "2001-09-20",
+      "address": "456 Oak Ave, Boston, MA",
+      "trainings": []
+    },
+    {
+      "userId": 103,
+      "firstName": "Alex",
+      "lastName": "Turner",
+      "username": "alex.turner",
+      "password": "Password123!",
+      "isActive": false,
+      "dateOfBirth": "1995-12-01",
+      "address": "789 Pine Rd, Chicago, IL",
+      "trainings": []
+    }
+  ],
+  "trainers": [
+    {
+      "userId": 201,
+      "firstName": "Michael",
+      "lastName": "Phelps",
+      "username": "michael.phelps",
+      "password": "Password123!",
+      "isActive": true,
+      "specialization": "SWIMMING",
+      "trainings": []
+    },
+    {
+      "userId": 202,
+      "firstName": "Serena",
+      "lastName": "Williams",
+      "username": "serena.williams",
+      "password": "Password123!",
+      "isActive": true,
+      "specialization": "CARDIO",
+      "trainings": []
+    },
+    {
+      "userId": 203,
+      "firstName": "Arnold",
+      "lastName": "Schwarzenegger",
+      "username": "arnold.s",
+      "password": "Password123!",
+      "isActive": true,
+      "specialization": "STRENGTH",
+      "trainings": []
+    }
+  ],
+  "trainings": [
+    {
+      "id": 301,
+      "traineeId": 101,
+      "trainerId": 201,
+      "trainingName": "Morning Swim Session",
+      "trainingType": "SWIMMING",
+      "trainingDate": "2026-09-10",
+      "trainingDuration": 60
+    },
+    {
+      "id": 302,
+      "traineeId": 101,
+      "trainerId": 203,
+      "trainingName": "Full Body Workout",
+      "trainingType": "STRENGTH",
+      "trainingDate": "2026-09-12",
+      "trainingDuration": 90
+    },
+    {
+      "id": 303,
+      "traineeId": 102,
+      "trainerId": 202,
+      "trainingName": "High Intensity Cardio",
+      "trainingType": "CARDIO",
+      "trainingDate": "2026-09-11",
+      "trainingDuration": 45
+    },
+    {
+      "id": 304,
+      "traineeId": 103,
+      "trainerId": 203,
+      "trainingName": "Powerlifting Intro",
+      "trainingType": "STRENGTH",
+      "trainingDate": "2026-08-25",
+      "trainingDuration": 75
+    }
+  ]
+}
