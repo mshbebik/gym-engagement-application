@@ -56,7 +56,7 @@ public class TraineeServiceImpl implements TraineeService {
                 .firstName(trainee.getFirstName())
                 .lastName(trainee.getLastName())
                 .userName(username)
-                .password(credentialsManager.generateRandomPassword())
+                .password(password)
                 .isActive(trainee.getIsActive())
                 .dateOfBirth(trainee.getDateOfBirth())
                 .address(trainee.getAddress())

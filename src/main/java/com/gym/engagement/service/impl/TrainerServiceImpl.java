@@ -52,7 +52,7 @@ public class TrainerServiceImpl implements TrainerService {
                 .firstName(trainer.getFirstName())
                 .lastName(trainer.getLastName())
                 .userName(username)
-                .password(credentialsManager.generateRandomPassword())
+                .password(password)
                 .isActive(trainer.getIsActive())
                 .specialization(trainer.getSpecialization())
                 .userId(trainer.getUserId())

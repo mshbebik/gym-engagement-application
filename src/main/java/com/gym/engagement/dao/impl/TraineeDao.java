@@ -3,9 +3,11 @@ package com.gym.engagement.dao.impl;
 import com.gym.engagement.dao.AbstractDao;
 import com.gym.engagement.model.Trainee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
+@Repository
 public class TraineeDao extends AbstractDao<Trainee> {
 
     @Autowired

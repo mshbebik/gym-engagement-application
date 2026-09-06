@@ -1,6 +1,7 @@
 package com.gym.engagement.service.impl;
 
 import com.gym.engagement.dao.impl.TrainingDao;
+import com.gym.engagement.exception.EntityNotFoundException;
 import com.gym.engagement.model.Trainee;
 import com.gym.engagement.model.Trainer;
 import com.gym.engagement.model.Training;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainingServiceImpl implements TrainingService {
@@ -38,9 +40,8 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public List<Training> selectTrainingsById(Long id) {
-        return trainingDao.getAll().stream()
-                .filter(training -> training.getId().equals(id))
-                .toList();
+    public Training selectTrainingById(Long id) {
+        return trainingDao.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Training with id: %d was not found".formatted(id)));
     }
 }

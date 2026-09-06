@@ -2,6 +2,7 @@ package com.gym.engagement.dao;
 
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class AbstractDao<V> implements Dao<V> {
 
     @Override
     public List<V> getAll() {
-        return (List<V>) storage.values();
+        return new ArrayList<>(storage.values());
     }
 
     @Override
