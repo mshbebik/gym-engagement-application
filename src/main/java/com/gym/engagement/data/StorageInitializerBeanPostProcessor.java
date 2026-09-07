@@ -1,20 +1,23 @@
 package com.gym.engagement.data;
 
 import com.gym.engagement.data.dto.StorageInitializationDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
-@RequiredArgsConstructor
 public class StorageInitializerBeanPostProcessor implements BeanPostProcessor {
-    private StorageParser storageParser;
+    private final StorageParser storageParser;
 
     @Value("${data.source.file.path}")
     private String sourceFilePath;
+
+    public StorageInitializerBeanPostProcessor(@Lazy StorageParser storageParser) {
+        this.storageParser = storageParser;
+    }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) {

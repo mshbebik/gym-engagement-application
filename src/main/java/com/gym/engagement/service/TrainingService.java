@@ -14,5 +14,5 @@ public interface TrainingService {
 
     List<Training> selectTrainingsByTrainee(Trainee trainee);
 
-    List<Training> selectTrainingsById(Long id);
+    Training selectTrainingById(Long id);
 }
