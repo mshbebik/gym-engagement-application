@@ -27,12 +27,14 @@ public class GymFacade {
     public TraineeDTO createTrainee(TraineeDTO traineeDto) {
         Trainee trainee = mapper.map(traineeDto, Trainee.class);
         Trainee createdTrainee = traineeService.createTrainee(trainee);
+
         return mapper.map(createdTrainee, TraineeDTO.class);
     }
 
     public TraineeDTO updateTrainee(TraineeDTO traineeDto) {
         Trainee trainee = mapper.map(traineeDto, Trainee.class);
         Trainee updatedTrainee =  traineeService.updateTrainee(trainee);
+
         return mapper.map(updatedTrainee, TraineeDTO.class);
     }
 
@@ -48,12 +50,14 @@ public class GymFacade {
     public TrainerDTO createTrainer(TrainerDTO trainerDto) {
         Trainer trainer = mapper.map(trainerDto, Trainer.class);
         Trainer createdTrainer = trainerService.createTrainer(trainer);
+
         return mapper.map(createdTrainer, TrainerDTO.class);
     }
 
     public TrainerDTO updateTrainer(TrainerDTO trainerDto) {
         Trainer trainer = mapper.map(trainerDto, Trainer.class);
         Trainer updatedTrainer = trainerService.updateTrainer(trainer);
+
         return mapper.map(updatedTrainer, TrainerDTO.class);
     }
 
@@ -65,6 +69,7 @@ public class GymFacade {
     public TrainingDTO createTraining(TrainingDTO trainingDto) {
         Training training = mapper.map(trainingDto, Training.class);
         Training createdTraining = trainingService.createTraining(training);
+
         return mapper.map(createdTraining, TrainingDTO.class);
     }
 
@@ -76,6 +81,7 @@ public class GymFacade {
     public List<TrainingDTO> selectTrainingsByTrainer(TrainerDTO trainerDto) {
         Trainer trainer = mapper.map(trainerDto, Trainer.class);
         List<Training> trainings = trainingService.selectTrainingsByTrainer(trainer);
+
         return trainings.stream()
                 .map(training -> mapper.map(training, TrainingDTO.class))
                 .toList();
@@ -84,6 +90,7 @@ public class GymFacade {
     public List<TrainingDTO> selectTrainingsByTrainee(TraineeDTO traineeDto) {
         Trainee trainee = mapper.map(traineeDto, Trainee.class);
         List<Training> trainings = trainingService.selectTrainingsByTrainee(trainee);
+        
         return trainings.stream()
                 .map(training -> mapper.map(training, TrainingDTO.class))
                 .toList();
