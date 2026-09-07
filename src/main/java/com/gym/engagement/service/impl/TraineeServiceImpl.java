@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class TraineeServiceImpl implements TraineeService {
 
@@ -24,6 +26,7 @@ public class TraineeServiceImpl implements TraineeService {
 
     @Override
     public Trainee createTrainee(Trainee trainee) {
+        Objects.requireNonNull(trainee);
         String username = credentialsManager.generateUsername(trainee.getFirstName(),
                 trainee.getLastName(),
                 u -> traineeDao.existsByUsername(u) || trainerDao.existsByUsername(u));
@@ -36,17 +39,20 @@ public class TraineeServiceImpl implements TraineeService {
 
     @Override
     public Trainee updateTrainee(Trainee trainee) {
+        Objects.requireNonNull(trainee);
         traineeDao.save(trainee.getUserId(), trainee);
         return trainee;
     }
 
     @Override
     public void deleteTrainee(Long id) {
+        Objects.requireNonNull(id);
         traineeDao.deleteById(id);
     }
 
     @Override
     public Trainee selectTraineeById(Long id) {
+        Objects.requireNonNull(id);
         return traineeDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Trainee with id: %d was not found".formatted(id)));
     }

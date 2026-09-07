@@ -3,13 +3,14 @@ package com.gym.engagement.service.impl;
 import com.gym.engagement.dao.impl.TraineeDao;
 import com.gym.engagement.dao.impl.TrainerDao;
 import com.gym.engagement.exception.EntityNotFoundException;
-import com.gym.engagement.model.Trainee;
 import com.gym.engagement.model.Trainer;
 import com.gym.engagement.service.TrainerService;
 import com.gym.engagement.service.common.UserCredentialsManager;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class TrainerServiceImpl implements TrainerService {
@@ -25,6 +26,7 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public Trainer createTrainer(Trainer trainer) {
+        Objects.requireNonNull(trainer);
         String username = credentialsManager.generateUsername(trainer.getFirstName(),
                 trainer.getLastName(),
                 u -> traineeDao.existsByUsername(u) || trainerDao.existsByUsername(u));
@@ -37,12 +39,14 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public Trainer updateTrainer(Trainer trainer) {
+        Objects.requireNonNull(trainer);
         trainerDao.save(trainer.getUserId(), trainer);
         return trainer;
     }
 
     @Override
     public Trainer selectTrainerById(Long id) {
+        Objects.requireNonNull(id);
         return trainerDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Trainer with id: %d was not found".formatted(id)));
     }
