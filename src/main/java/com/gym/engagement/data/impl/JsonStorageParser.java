@@ -1,5 +1,6 @@
 package com.gym.engagement.data.impl;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gym.engagement.data.StorageParser;
 import com.gym.engagement.data.dto.StorageInitializationDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,7 @@ public class JsonStorageParser implements StorageParser {
     @Override
     public StorageInitializationDTO parseSourceData(String sourceFilePath) {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
 
         Resource resource = resourceLoader.getResource(sourceFilePath);
 
