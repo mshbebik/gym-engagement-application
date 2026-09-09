@@ -51,7 +51,9 @@ public class AbstractDaoTest {
         storage.put(2L, "John Pork");
         storage.put(3L, "X man");
 
-        assertThat(dao.getAll()).containsExactlyInAnyOrder("Mr Beast", "John Pork", "X man");
+        List<String> actual = dao.getAll();
+
+        assertThat(actual).containsExactlyInAnyOrder("Mr Beast", "John Pork", "X man");
     }
 
     @Test
