@@ -1,11 +1,10 @@
-package com.gym.engagement.service;
+package com.gym.engagement.service.impl;
 
 import com.gym.engagement.dao.impl.TraineeDao;
 import com.gym.engagement.dao.impl.TrainerDao;
 import com.gym.engagement.exception.EntityNotFoundException;
 import com.gym.engagement.model.Trainee;
 import com.gym.engagement.service.common.UserCredentialsManager;
-import com.gym.engagement.service.impl.TraineeServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -30,6 +29,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TraineeServiceImplTest {
 
+    private static final Long USERID = 2L;
+    private static final String FIRSTNAME = "Jason";
+    private static final String LASTNAME = "Paper";
+    private static final String USERNAME = "Jason.Paper";
+    private static final String PASSWORD = "beautifulDay9812";
+
     @Mock
     private UserCredentialsManager credentialsManager;
 
@@ -46,18 +51,18 @@ class TraineeServiceImplTest {
 
     @Test
     void createTrainee_shouldGenerateUsernameAndPassword_andSave() {
-        when(credentialsManager.generateUsername(eq("John"), eq("Smith"), any()))
-                .thenReturn("John.Smith");
-        when(credentialsManager.generateRandomPassword()).thenReturn("randomPass123");
+        when(credentialsManager.generateUsername(eq(FIRSTNAME), eq(LASTNAME), any()))
+                .thenReturn(USERNAME);
+        when(credentialsManager.generateRandomPassword()).thenReturn(PASSWORD);
 
-        Trainee result = service.createTrainee(trainee);
+        Trainee actual = service.createTrainee(trainee);
 
-        assertThat(result.getUserName()).isEqualTo("John.Smith");
-        assertThat(result.getPassword()).isEqualTo("randomPass123");
-        assertThat(result.getFirstName()).isEqualTo("John");
-        assertThat(result.getUserId()).isEqualTo(1L);
-        verify(traineeDao).save(eq(1L), argThat(t ->
-                t.getUserName().equals("John.Smith") && t.getPassword().equals("randomPass123")));
+        assertThat(actual.getUserName()).isEqualTo(USERNAME);
+        assertThat(actual.getPassword()).isEqualTo(PASSWORD);
+        assertThat(actual.getFirstName()).isEqualTo(FIRSTNAME);
+        assertThat(actual.getUserId()).isEqualTo(USERID);
+        verify(traineeDao).save(eq(USERID), argThat(t ->
+                t.getUserName().equals(USERNAME) && t.getPassword().equals(PASSWORD)));
     }
 
     @Test
@@ -72,26 +77,26 @@ class TraineeServiceImplTest {
     void createTrainee_usernameUniquenessCheck_shouldConsultBothDaos() {
         ArgumentCaptor<Predicate<String>> predicateCaptor = ArgumentCaptor.forClass(Predicate.class);
 
-        when(credentialsManager.generateUsername(eq("John"), eq("Smith"), predicateCaptor.capture()))
-                .thenReturn("John.Smith1");
-        when(credentialsManager.generateRandomPassword()).thenReturn("pw");
-        when(traineeDao.existsByUsername("John.Smith")).thenReturn(false);
-        when(trainerDao.existsByUsername("John.Smith")).thenReturn(true);
+        when(credentialsManager.generateUsername(eq(FIRSTNAME), eq(LASTNAME), predicateCaptor.capture()))
+                .thenReturn(USERNAME);
+        when(credentialsManager.generateRandomPassword()).thenReturn(PASSWORD);
+        when(traineeDao.existsByUsername(USERNAME)).thenReturn(false);
+        when(trainerDao.existsByUsername(USERNAME)).thenReturn(true);
 
         service.createTrainee(trainee);
 
         Predicate<String> capturedPredicate = predicateCaptor.getValue();
-        assertThat(capturedPredicate.test("John.Smith")).isTrue();
-        verify(traineeDao).existsByUsername("John.Smith");
-        verify(trainerDao).existsByUsername("John.Smith");
+        assertThat(capturedPredicate.test(USERNAME)).isTrue();
+        verify(traineeDao).existsByUsername(USERNAME);
+        verify(trainerDao).existsByUsername(USERNAME);
     }
 
     @Test
     void updateTrainee_shouldSaveAndReturnSameTrainee() {
-        Trainee result = service.updateTrainee(trainee);
+        Trainee actual = service.updateTrainee(trainee);
 
-        assertThat(result).isEqualTo(trainee);
-        verify(traineeDao).save(1L, trainee);
+        assertThat(actual).isEqualTo(trainee);
+        verify(traineeDao).save(USERID, trainee);
     }
 
     @Test
@@ -103,8 +108,8 @@ class TraineeServiceImplTest {
 
     @Test
     void deleteTrainee_shouldCallDaoDeleteById() {
-        service.deleteTrainee(1L);
-        verify(traineeDao).deleteById(1L);
+        service.deleteTrainee(USERID);
+        verify(traineeDao).deleteById(USERID);
     }
 
     @Test
@@ -116,11 +121,11 @@ class TraineeServiceImplTest {
 
     @Test
     void selectTraineeById_shouldReturnTrainee_whenFound() {
-        when(traineeDao.findById(1L)).thenReturn(Optional.of(trainee));
+        when(traineeDao.findById(USERID)).thenReturn(Optional.of(trainee));
 
-        Trainee result = service.selectTraineeById(1L);
+        Trainee actual = service.selectTraineeById(USERID);
 
-        assertThat(result).isEqualTo(trainee);
+        assertThat(actual).isEqualTo(trainee);
     }
 
     @Test
@@ -134,12 +139,12 @@ class TraineeServiceImplTest {
 
     private Trainee constructTrainee() {
         return Trainee.builder()
-                .userId(1L)
-                .firstName("John")
-                .lastName("Smith")
+                .userId(USERID)
+                .firstName(FIRSTNAME)
+                .lastName(LASTNAME)
                 .isActive(true)
                 .dateOfBirth(LocalDate.of(1990, 1, 1))
-                .address("123 Main St")
+                .address("28 Waterland St")
                 .trainings(Collections.emptyList())
                 .build();
     }

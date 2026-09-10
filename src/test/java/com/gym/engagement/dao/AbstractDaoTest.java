@@ -24,25 +24,25 @@ public class AbstractDaoTest {
 
     @Test
     void findById_shouldReturnEmpty_whenIdNotPresent() {
-        Optional<String> result = dao.findById(1L);
+        Optional<String> actual = dao.findById(1L);
 
-        assertThat(result).isEmpty();
+        assertThat(actual).isEmpty();
     }
 
     @Test
     void findById_shouldReturnValue_whenIdPresent() {
         storage.put(2L, "Mr Beast");
 
-        Optional<String> result = dao.findById(2L);
+        Optional<String> actual = dao.findById(2L);
 
-        assertThat(result).contains("Mr Beast");
+        assertThat(actual).contains("Mr Beast");
     }
 
     @Test
     void getAll_shouldReturnEmptyList_whenStorageIsEmpty() {
-        List<String> result = dao.getAll();
+        List<String> actual = dao.getAll();
 
-        assertThat(result).isEmpty();
+        assertThat(actual).isEmpty();
     }
 
     @Test
