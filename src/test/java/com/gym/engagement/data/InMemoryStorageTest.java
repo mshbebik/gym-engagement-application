@@ -25,9 +25,9 @@ class InMemoryStorageTest {
 
     @Test
     void constructor_shouldInitializeAllThreeNamespaces() {
-        Map<Long, Object> actualTrainees = storage.getEntities(EntityType.TRAINEES);
-        Map<Long, Object> actualTrainers = storage.getEntities(EntityType.TRAINERS);
-        Map<Long, Object> actualTrainings = storage.getEntities(EntityType.TRAININGS);
+        Map<Long, Object> actualTrainees = storage.getEntities(TRAINEES);
+        Map<Long, Object> actualTrainers = storage.getEntities(TRAINERS);
+        Map<Long, Object> actualTrainings = storage.getEntities(TRAININGS);
 
         assertThat(actualTrainees).isNotNull().isEmpty();
         assertThat(actualTrainers).isNotNull().isEmpty();
@@ -36,25 +36,25 @@ class InMemoryStorageTest {
 
     @Test
     void getEntities_shouldReturnSameMapInstance_onRepeatedCalls() {
-        Map<Long, Object> first = storage.getEntities(EntityType.TRAINEES);
-        Map<Long, Object> second = storage.getEntities(EntityType.TRAINEES);
+        Map<Long, Object> first = storage.getEntities(TRAINEES);
+        Map<Long, Object> second = storage.getEntities(TRAINEES);
 
         assertThat(first).isSameAs(second);
     }
 
     @Test
     void getEntities_shouldKeepNamespacesIsolated() {
-        storage.getEntities(EntityType.TRAINEES).put(ID, VALUE);
+        storage.getEntities(TRAINEES).put(ID, VALUE);
 
-        assertThat(storage.getEntities(EntityType.TRAINEES)).containsEntry(ID, VALUE);
-        assertThat(storage.getEntities(EntityType.TRAINERS)).isEmpty();
-        assertThat(storage.getEntities(EntityType.TRAININGS)).isEmpty();
+        assertThat(storage.getEntities(TRAINEES)).containsEntry(ID, VALUE);
+        assertThat(storage.getEntities(TRAINERS)).isEmpty();
+        assertThat(storage.getEntities(TRAININGS)).isEmpty();
     }
 
     @Test
     void getEntities_mutationsPersistAcrossCalls() {
-        storage.getEntities(EntityType.TRAININGS).put(ID, VALUE);
+        storage.getEntities(TRAININGS).put(ID, VALUE);
 
-        assertThat(storage.getEntities(EntityType.TRAININGS)).containsEntry(ID, VALUE);
+        assertThat(storage.getEntities(TRAININGS)).containsEntry(ID, VALUE);
     }
 }

@@ -1,5 +1,6 @@
 package com.gym.engagement.service.common;
 
+import com.gym.engagement.annotation.NoLogging;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -24,6 +25,7 @@ public class UserCredentialsManager {
         return candidateUsername;
     }
 
+    @NoLogging
     public String generateRandomPassword() {
         StringBuilder sb = new StringBuilder(PASSWORD_LENGTH);
         for (int i = 0; i < PASSWORD_LENGTH; i++) {
