@@ -1,6 +1,7 @@
 package com.gym.engagement.dao.impl;
 
 import com.gym.engagement.model.Trainee;
+import com.gym.engagement.model.Trainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,27 +10,27 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TraineeDaoTest {
+public class TrainerDaoTest {
 
     private static final Long ID = 1L;
     private static final String USERNAME = "Bill.Clover";
 
-    private TraineeDao dao;
-    private Map<Long, Trainee> storage;
+    private TrainerDao dao;
+    private Map<Long, Trainer> storage;
 
     @BeforeEach
     void setUp() {
-        dao = new TraineeDao();
+        dao = new TrainerDao();
         storage = new HashMap<>();
         dao.setStorage(storage);
     }
 
     @Test
     void existsByUsername_shouldReturnTrue_whenUsernameMatches() {
-        Trainee trainee = Trainee.builder()
+        Trainer trainer = Trainer.builder()
                 .userName(USERNAME)
                 .build();
-        storage.put(ID, trainee);
+        storage.put(ID, trainer);
 
         boolean actual = dao.existsByUsername(USERNAME);
 
@@ -38,10 +39,10 @@ public class TraineeDaoTest {
 
     @Test
     void existsByUsername_shouldReturnFalse_whenUsernameDoesNotMatch() {
-        Trainee trainee = Trainee.builder()
+        Trainer trainer = Trainer.builder()
                 .userName(USERNAME)
                 .build();
-        storage.put(ID, trainee);
+        storage.put(ID, trainer);
 
         boolean actual = dao.existsByUsername(USERNAME + "1");
 
@@ -55,10 +56,10 @@ public class TraineeDaoTest {
 
     @Test
     void existsByUsername_shouldBeCaseSensitive() {
-        Trainee trainee = Trainee.builder()
+        Trainer trainer = Trainer.builder()
                 .userName(USERNAME)
                 .build();
-        storage.put(ID, trainee);
+        storage.put(ID, trainer);
 
         boolean actual = dao.existsByUsername(USERNAME.toLowerCase());
 

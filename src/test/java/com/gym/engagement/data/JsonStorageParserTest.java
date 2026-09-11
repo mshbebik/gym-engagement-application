@@ -21,13 +21,13 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class JsonStorageParserTest {
 
+    private JsonStorageParser parser;
+
     @Mock
     private ResourceLoader resourceLoader;
 
     @Mock
     private Resource resource;
-
-    private JsonStorageParser parser;
 
     @BeforeEach
     void setUp() {
@@ -60,13 +60,13 @@ public class JsonStorageParserTest {
         when(resource.getInputStream())
                 .thenReturn(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
 
-        StorageInitializationDTO result = parser.parseSourceData("data-source.json");
+        StorageInitializationDTO actual = parser.parseSourceData("data-source.json");
 
-        assertThat(result.getTrainees()).hasSize(1);
-        assertThat(result.getTrainees().getFirst().getFirstName()).isEqualTo("John");
-        assertThat(result.getTrainees().getFirst().getUserId()).isEqualTo(101L);
-        assertThat(result.getTrainers()).isEmpty();
-        assertThat(result.getTrainings()).isEmpty();
+        assertThat(actual.getTrainees()).hasSize(1);
+        assertThat(actual.getTrainees().getFirst().getFirstName()).isEqualTo("John");
+        assertThat(actual.getTrainees().getFirst().getUserId()).isEqualTo(101L);
+        assertThat(actual.getTrainers()).isEmpty();
+        assertThat(actual.getTrainings()).isEmpty();
     }
 
     @Test
@@ -96,11 +96,11 @@ public class JsonStorageParserTest {
         when(resource.getInputStream())
                 .thenReturn(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
 
-        StorageInitializationDTO result = parser.parseSourceData("empty.json");
+        StorageInitializationDTO actual = parser.parseSourceData("empty.json");
 
-        assertThat(result.getTrainees()).isEmpty();
-        assertThat(result.getTrainers()).isEmpty();
-        assertThat(result.getTrainings()).isEmpty();
+        assertThat(actual.getTrainees()).isEmpty();
+        assertThat(actual.getTrainers()).isEmpty();
+        assertThat(actual.getTrainings()).isEmpty();
     }
 
 }
