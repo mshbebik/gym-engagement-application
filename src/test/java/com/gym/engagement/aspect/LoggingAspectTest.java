@@ -30,9 +30,9 @@ class LoggingAspectTest {
     private static final String DELETE_SIGNATURE = "TraineeServiceImpl.deleteTrainee(..)";
     private static final Long USER_ID = 99L;
     private static final String NOT_FOUND_MESSAGE = "Trainee with id: 99 was not found";
-    private static final String USERNAME = "john.smith";
-    private static final String ADDRESS = "123 Main St";
-    private static final String PASSWORD = "supersecret123";
+    private static final String USERNAME = "bob.morn";
+    private static final String ADDRESS = " 333 Farland St";
+    private static final String PASSWORD = "password123";
 
     private final Trainee traineeWithPassword = constructTraineeWithPassword();
 
