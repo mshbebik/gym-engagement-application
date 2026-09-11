@@ -120,7 +120,7 @@ public class LoggingAspect {
             field.setAccessible(true);
             try {
                 Object fieldValue = SENSITIVE_FIELD_NAMES.contains(field.getName().toLowerCase())
-                        ? "*REDACTED*"
+                        ? "REDACTED"
                         : field.get(value);
                 sb.append(field.getName()).append("=").append(fieldValue);
 
