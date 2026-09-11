@@ -35,6 +35,8 @@ public class TrainerServiceImplTest {
     private static final String USERNAME = "Jason.Paper";
     private static final String PASSWORD = "beautifulDay9812";
 
+    private final Trainer trainer = constructTrainer();
+
     @Mock
     private UserCredentialsManager credentialsManager;
 
@@ -46,8 +48,6 @@ public class TrainerServiceImplTest {
 
     @InjectMocks
     private TrainerServiceImpl service;
-
-    private final Trainer trainer = constructTrainer();
 
     @Test
     void createTrainer_shouldGenerateUsernameAndPassword_andSave() {
@@ -121,7 +121,7 @@ public class TrainerServiceImplTest {
 
         assertThatThrownBy(() -> service.selectTrainerById(99L))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessageContaining("99");
+                .hasMessage("Trainer with id: %s was not found", "99");
     }
 
     private Trainer constructTrainer() {

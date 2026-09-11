@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -88,25 +90,22 @@ class UserCredentialsManagerTest {
 
     @Test
     void generateRandomPassword_shouldReturnStringOfExactLength() {
-        String password = credentialsManager.generateRandomPassword();
+        String actual = credentialsManager.generateRandomPassword();
 
-        assertThat(password).hasSize(10);
+        assertThat(actual).hasSize(10);
     }
 
     @Test
     void generateRandomPassword_shouldOnlyContainAllowedCharacters() {
-        String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         String actual = credentialsManager.generateRandomPassword();
-
-        assertThat(actual).matches(c -> c.chars().allMatch(ch -> allowedCharacters.indexOf(ch) >= 0));
+        assertThat(actual).matches("[A-Za-z0-9]+");
     }
 
     @Test
     void generateRandomPassword_shouldGenerateDifferentValues_acrossMultipleCalls() {
-        Set<String> generatedPasswords = new HashSet<>();
-        for (int i = 0; i < 100; i++) {
-            generatedPasswords.add(credentialsManager.generateRandomPassword());
-        }
+        Set<String> generatedPasswords = Stream.generate(credentialsManager::generateRandomPassword)
+                .limit(100)
+                .collect(Collectors.toSet());
 
         assertThat(generatedPasswords).hasSize(100);
     }

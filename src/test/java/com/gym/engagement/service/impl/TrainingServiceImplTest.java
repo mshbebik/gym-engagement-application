@@ -31,25 +31,17 @@ public class TrainingServiceImplTest {
     private static final Long TRAINING_ID = 1L;
     private static final Long TRAINEE_ID = 2L;
     private static final Long TRAINER_ID = 3L;
-    private List<Training> trainings;
+
+    private final Training training = constructTraining();
+    private final Trainee trainee = constructTrainee();
+    private final Trainer trainer = constructTrainer();
+    private final List<Training> trainings = constructTrainings();
 
     @Mock
     private TrainingDao trainingDao;
 
     @InjectMocks
     private TrainingServiceImpl service;
-
-    private final Training training = constructTraining();
-    private final Trainee trainee = constructTrainee();
-    private final Trainer trainer = constructTrainer();
-
-    @BeforeEach()
-    void setUp() {
-        trainings = new ArrayList<>(List.of(
-                new Training(1L, 10L, 10L, "Sprint", null, null, null),
-                new Training(2L, 33L, 44L, "Push ups", null, null, null),
-                new Training(2L, 13L, 20L, "Pull ups", null, null, null)));
-    }
 
     @Test
     void createTraining_shouldSaveTraining() {
@@ -81,6 +73,7 @@ public class TrainingServiceImplTest {
         Training training2 = Training.builder().trainerId(TRAINER_ID).trainingName("Cardio").build();
         Training training3 = Training.builder().trainerId(TRAINER_ID).trainingName("Yoga").build();
         trainings.addAll(List.of(training, training2, training3));
+
         when(trainingDao.getAll()).thenReturn(trainings);
 
         List<Training> actual = service.selectTrainingsByTrainer(trainer);
@@ -110,6 +103,7 @@ public class TrainingServiceImplTest {
         Training training2 = Training.builder().traineeId(TRAINEE_ID).trainingName("Cardio").build();
         Training training3 = Training.builder().traineeId(TRAINEE_ID).trainingName("Yoga").build();
         trainings.addAll(List.of(training, training2, training3));
+
         when(trainingDao.getAll()).thenReturn(trainings);
 
         List<Training> actual = service.selectTrainingsByTrainee(trainee);
@@ -140,7 +134,7 @@ public class TrainingServiceImplTest {
 
         assertThatThrownBy(() -> service.selectTrainingById(TRAINING_ID))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessageContaining(TRAINING_ID.toString());
+                .hasMessage("Training with id: %s was not found", TRAINING_ID.toString());
     }
 
     @Test
@@ -183,5 +177,12 @@ public class TrainingServiceImplTest {
                 .specialization(new TrainingType("Swimming"))
                 .trainings(Collections.emptyList())
                 .build();
+    }
+
+    private List<Training> constructTrainings() {
+        return new ArrayList<>(List.of(
+                new Training(1L, 10L, 10L, "Sprint", null, null, null),
+                new Training(2L, 33L, 44L, "Push ups", null, null, null),
+                new Training(2L, 13L, 20L, "Pull ups", null, null, null)));
     }
 }

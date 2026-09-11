@@ -21,13 +21,13 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class JsonStorageParserTest {
 
+    private JsonStorageParser parser;
+
     @Mock
     private ResourceLoader resourceLoader;
 
     @Mock
     private Resource resource;
-
-    private JsonStorageParser parser;
 
     @BeforeEach
     void setUp() {

@@ -35,6 +35,8 @@ class TraineeServiceImplTest {
     private static final String USERNAME = "Jason.Paper";
     private static final String PASSWORD = "beautifulDay9812";
 
+    private final Trainee trainee = constructTrainee();
+
     @Mock
     private UserCredentialsManager credentialsManager;
 
@@ -46,8 +48,6 @@ class TraineeServiceImplTest {
 
     @InjectMocks
     private TraineeServiceImpl service;
-
-    private final Trainee trainee = constructTrainee();
 
     @Test
     void createTrainee_shouldGenerateUsernameAndPassword_andSave() {
@@ -134,7 +134,7 @@ class TraineeServiceImplTest {
 
         assertThatThrownBy(() -> service.selectTraineeById(99L))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessageContaining("99");
+                .hasMessage("Trainee with id: %s was not found", "99");
     }
 
     private Trainee constructTrainee() {

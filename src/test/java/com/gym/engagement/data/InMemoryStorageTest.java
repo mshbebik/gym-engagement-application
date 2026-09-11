@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static com.gym.engagement.data.EntityType.TRAINEES;
+import static com.gym.engagement.data.EntityType.TRAINERS;
+import static com.gym.engagement.data.EntityType.TRAININGS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InMemoryStorageTest {
@@ -22,9 +25,13 @@ class InMemoryStorageTest {
 
     @Test
     void constructor_shouldInitializeAllThreeNamespaces() {
-        assertThat(storage.getEntities(EntityType.TRAINEES)).isNotNull().isEmpty();
-        assertThat(storage.getEntities(EntityType.TRAINERS)).isNotNull().isEmpty();
-        assertThat(storage.getEntities(EntityType.TRAININGS)).isNotNull().isEmpty();
+        Map<Long, Object> actualTrainees = storage.getEntities(EntityType.TRAINEES);
+        Map<Long, Object> actualTrainers = storage.getEntities(EntityType.TRAINERS);
+        Map<Long, Object> actualTrainings = storage.getEntities(EntityType.TRAININGS);
+
+        assertThat(actualTrainees).isNotNull().isEmpty();
+        assertThat(actualTrainers).isNotNull().isEmpty();
+        assertThat(actualTrainings).isNotNull().isEmpty();
     }
 
     @Test

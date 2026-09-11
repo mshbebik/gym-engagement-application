@@ -63,11 +63,10 @@ class StorageInitializerBeanPostProcessorTest {
     void postProcessAfterInitialization_shouldPopulateTrainees_whenPresent() {
         Trainee trainee1 = Trainee.builder().userId(1L).firstName("John").build();
         Trainee trainee2 = Trainee.builder().userId(2L).firstName("Jane").build();
-
         StorageInitializationDTO dto = new StorageInitializationDTO();
         dto.setTrainees(List.of(trainee1, trainee2));
-
         Map<Long, Object> traineeMap = new HashMap<>();
+
         when(storageParser.parseSourceData(SOURCE_PATH)).thenReturn(dto);
         when(entityStorage.getEntities(EntityType.TRAINEES)).thenReturn(traineeMap);
 
@@ -79,11 +78,10 @@ class StorageInitializerBeanPostProcessorTest {
     @Test
     void postProcessAfterInitialization_shouldPopulateTrainers_whenPresent() {
         Trainer trainer = Trainer.builder().userId(10L).firstName("Mike").build();
-
         StorageInitializationDTO dto = new StorageInitializationDTO();
         dto.setTrainers(List.of(trainer));
-
         Map<Long, Object> trainerMap = new HashMap<>();
+
         when(storageParser.parseSourceData(SOURCE_PATH)).thenReturn(dto);
         when(entityStorage.getEntities(EntityType.TRAINERS)).thenReturn(trainerMap);
 
@@ -95,11 +93,10 @@ class StorageInitializerBeanPostProcessorTest {
     @Test
     void postProcessAfterInitialization_shouldPopulateTrainings_whenPresent() {
         Training training = Training.builder().id(100L).trainingName("Leg Day").build();
-
         StorageInitializationDTO dto = new StorageInitializationDTO();
         dto.setTrainings(List.of(training));
-
         Map<Long, Object> trainingMap = new HashMap<>();
+
         when(storageParser.parseSourceData(SOURCE_PATH)).thenReturn(dto);
         when(entityStorage.getEntities(EntityType.TRAININGS)).thenReturn(trainingMap);
 
