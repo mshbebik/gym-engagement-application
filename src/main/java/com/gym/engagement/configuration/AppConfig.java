@@ -8,10 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@EnableAspectJAutoProxy
-@ComponentScan(basePackages = "com.epam.gym.engagement")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
+@ComponentScan(basePackages = "com.gym.engagement")
 @PropertySource("classpath:application.properties")
 public class AppConfig {
 
@@ -23,5 +24,10 @@ public class AppConfig {
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 }

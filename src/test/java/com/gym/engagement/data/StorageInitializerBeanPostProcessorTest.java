@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +34,7 @@ class StorageInitializerBeanPostProcessorTest {
 
     @BeforeEach
     void setUp() {
-        processor = new StorageInitializerBeanPostProcessor(storageParser);
-        ReflectionTestUtils.setField(processor, "sourceFilePath", SOURCE_PATH);
+        processor = new StorageInitializerBeanPostProcessor(storageParser, SOURCE_PATH);
     }
 
     @Test

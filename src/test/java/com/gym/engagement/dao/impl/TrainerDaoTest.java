@@ -1,6 +1,5 @@
 package com.gym.engagement.dao.impl;
 
-import com.gym.engagement.model.Trainee;
 import com.gym.engagement.model.Trainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
