@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Trainee extends User {

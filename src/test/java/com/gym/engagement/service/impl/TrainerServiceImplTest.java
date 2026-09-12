@@ -12,6 +12,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -33,12 +34,16 @@ public class TrainerServiceImplTest {
     private static final String FIRSTNAME = "Jason";
     private static final String LASTNAME = "Paper";
     private static final String USERNAME = "Jason.Paper";
-    private static final String PASSWORD = "beautifulDay9812";
+    private static final String RAW_PASSWORD = "beautifulDay9812";
+    private static final String HASHED_PASSWORD = "$2a$10$hashedvaluestandin";
 
     private final Trainer trainer = constructTrainer();
 
     @Mock
     private UserCredentialsManager credentialsManager;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @Mock
     private TrainerDao trainerDao;
@@ -53,16 +58,17 @@ public class TrainerServiceImplTest {
     void createTrainer_shouldGenerateUsernameAndPassword_andSave() {
         when(credentialsManager.generateUsername(eq(FIRSTNAME), eq(LASTNAME), any()))
                 .thenReturn(USERNAME);
-        when(credentialsManager.generateRandomPassword()).thenReturn(PASSWORD);
+        when(credentialsManager.generateRandomPassword()).thenReturn(RAW_PASSWORD);
+        when(passwordEncoder.encode(RAW_PASSWORD)).thenReturn(HASHED_PASSWORD);
 
         Trainer actual = service.createTrainer(trainer);
 
         assertThat(actual.getUserName()).isEqualTo(USERNAME);
-        assertThat(actual.getPassword()).isEqualTo(PASSWORD);
+        assertThat(actual.getPassword()).isEqualTo(RAW_PASSWORD);
         assertThat(actual.getFirstName()).isEqualTo(FIRSTNAME);
         assertThat(actual.getUserId()).isEqualTo(USERID);
         verify(trainerDao).save(eq(USERID), argThat(t ->
-                t.getUserName().equals(USERNAME) && t.getPassword().equals(PASSWORD)));
+                t.getUserName().equals(USERNAME) && t.getPassword().equals(HASHED_PASSWORD)));
     }
 
     @Test
@@ -79,7 +85,7 @@ public class TrainerServiceImplTest {
 
         when(credentialsManager.generateUsername(eq(FIRSTNAME), eq(LASTNAME), predicateCaptor.capture()))
                 .thenReturn(USERNAME);
-        when(credentialsManager.generateRandomPassword()).thenReturn(PASSWORD);
+        when(credentialsManager.generateRandomPassword()).thenReturn(RAW_PASSWORD);
         when(traineeDao.existsByUsername(USERNAME)).thenReturn(false);
         when(trainerDao.existsByUsername(USERNAME)).thenReturn(true);
 

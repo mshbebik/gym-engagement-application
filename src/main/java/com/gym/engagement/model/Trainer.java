@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 @Getter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Trainer extends User {
