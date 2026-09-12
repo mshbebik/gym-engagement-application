@@ -8,6 +8,7 @@ import com.gym.engagement.service.TrainerService;
 import com.gym.engagement.service.common.UserCredentialsManager;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -17,6 +18,9 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Setter(onMethod_ = {@Autowired})
     private UserCredentialsManager credentialsManager;
+
+    @Setter(onMethod_ = {@Autowired})
+    private PasswordEncoder passwordEncoder;
 
     @Setter(onMethod_ = {@Autowired})
     private TrainerDao trainerDao;
@@ -31,10 +35,13 @@ public class TrainerServiceImpl implements TrainerService {
                 trainer.getLastName(),
                 u -> traineeDao.existsByUsername(u) || trainerDao.existsByUsername(u));
 
-        Trainer newTrainer = enrichTrainer(trainer, username, credentialsManager.generateRandomPassword());
+        String rawPassword = credentialsManager.generateRandomPassword();
+        String hashedPassword = passwordEncoder.encode(rawPassword);
+
+        Trainer newTrainer = enrichTrainer(trainer, username, hashedPassword);
 
         trainerDao.save(newTrainer.getUserId(), newTrainer);
-        return newTrainer;
+        return newTrainer.toBuilder().password(rawPassword).build();
     }
 
     @Override
