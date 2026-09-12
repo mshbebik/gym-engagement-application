@@ -6,7 +6,6 @@ import com.gym.engagement.model.Trainee;
 import com.gym.engagement.model.Trainer;
 import com.gym.engagement.model.Training;
 import com.gym.engagement.model.TrainingType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

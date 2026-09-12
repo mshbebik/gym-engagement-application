@@ -43,7 +43,7 @@ public class JsonStorageParserTest {
                       "userId": 101,
                       "firstName": "John",
                       "lastName": "Pork",
-                      "userName": "john.pork",
+                      "username": "john.pork",
                       "password": "Password123!",
                       "isActive": true,
                       "dateOfBirth": "1998-05-15",

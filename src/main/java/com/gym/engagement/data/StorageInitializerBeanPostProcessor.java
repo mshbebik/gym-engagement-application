@@ -15,8 +15,10 @@ public class StorageInitializerBeanPostProcessor implements BeanPostProcessor {
     @Value("${data.source.file.path}")
     private String sourceFilePath;
 
-    public StorageInitializerBeanPostProcessor(@Lazy StorageParser storageParser) {
+    public StorageInitializerBeanPostProcessor(@Lazy StorageParser storageParser,
+                                               @Value("${data.source.file.path}") String sourceFilePath) {
         this.storageParser = storageParser;
+        this.sourceFilePath = sourceFilePath;
     }
 
     @Override
