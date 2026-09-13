@@ -13,6 +13,7 @@ public class TrainerDTO {
     private String firstName;
     private String lastName;
     private String userName;
+    private String password;
     private Boolean isActive;
     private TrainingType specialization;
     private List<TrainingDTO> trainings;
