@@ -2,6 +2,7 @@ package com.gym.engagement.configuration;
 
 import com.gym.engagement.data.EntityStorage;
 import com.gym.engagement.data.impl.InMemoryStorage;
+import com.gym.engagement.factory.ModelMapperFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +24,7 @@ public class AppConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        return ModelMapperFactory.create();
     }
 
     @Bean

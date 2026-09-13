@@ -13,6 +13,7 @@ public class TraineeDTO {
     private String firstName;
     private String lastName;
     private String userName;
+    private String password;
     private Boolean isActive;
     private LocalDate dateOfBirth;
     private String address;
