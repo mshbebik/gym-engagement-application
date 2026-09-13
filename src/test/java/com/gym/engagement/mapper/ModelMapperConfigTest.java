@@ -40,23 +40,18 @@ class ModelMapperConfigTest {
     private static final Set<String> TRAINEE_COVERED_FIELDS = Set.of(
             "userId", "firstName", "lastName", "userName", "password",
             "isActive", "dateOfBirth", "address", "trainings");
-
     private static final Set<String> TRAINER_COVERED_FIELDS = Set.of(
             "userId", "firstName", "lastName", "userName", "password",
             "isActive", "specialization", "trainings");
-
     private static final Set<String> TRAINING_COVERED_FIELDS = Set.of(
             "id", "traineeId", "trainerId", "trainingName",
             "trainingType", "trainingDate", "trainingDuration");
-
     private static final Set<String> TRAINEE_DTO_COVERED_FIELDS = Set.of(
             "userId", "firstName", "lastName", "userName", "password",
             "isActive", "dateOfBirth", "address", "trainings");
-
     private static final Set<String> TRAINER_DTO_COVERED_FIELDS = Set.of(
             "userId", "firstName", "lastName", "userName", "password",
             "isActive", "specialization", "trainings");
-
     private static final Set<String> TRAINING_DTO_COVERED_FIELDS = Set.of(
             "id", "traineeId", "trainerId", "trainingName",
             "trainingType", "trainingDate", "trainingDuration");
@@ -109,7 +104,6 @@ class ModelMapperConfigTest {
                 .trainingDate(TRAINING_DATE)
                 .trainingDuration(TRAINING_DURATION)
                 .build();
-
         Trainee trainee = Trainee.builder()
                 .userId(USER_ID)
                 .firstName(FIRST_NAME)
@@ -171,7 +165,6 @@ class ModelMapperConfigTest {
                 .id(TRAINING_ID)
                 .trainingName(TRAINING_NAME)
                 .build();
-
         Trainer trainer = Trainer.builder()
                 .userId(USER_ID)
                 .firstName(FIRST_NAME)
